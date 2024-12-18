@@ -2,10 +2,13 @@ package tictactoe.controllers;
 
 import tictactoe.models.Player;
 import tictactoe.models.enums.GameState;
+import tictactoe.strategy.WinnerStrategy;
+
+import java.util.List;
 
 public class GameController {
 
-    public void startGame(){
+    public void startGame(int size, List<Player> playerList, List<WinnerStrategy> winnerStrategyList){
 
     }
 
