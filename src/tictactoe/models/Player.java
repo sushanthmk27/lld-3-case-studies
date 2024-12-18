@@ -12,6 +12,13 @@ public abstract class Player {
 
     private Symbol symbol;
 
+    public Player(int id, String name, PlayerType playerType, Symbol symbol){
+        this.id = id;
+        this.name = name;
+        this.playerType = playerType;
+        this.symbol = symbol;
+    }
+
     public int getId() {
         return id;
     }

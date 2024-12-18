@@ -4,6 +4,10 @@ public class Symbol {
 
     private char symbolShapeChar;
 
+    public Symbol(char symbolShapeChar){
+        this.symbolShapeChar = symbolShapeChar;
+    }
+
     public char getSymbolShapeChar() {
         return symbolShapeChar;
     }

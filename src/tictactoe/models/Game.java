@@ -3,6 +3,7 @@ package tictactoe.models;
 import tictactoe.models.enums.GameState;
 import tictactoe.strategy.WinnerStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -20,6 +21,16 @@ public class Game {
     private List<WinnerStrategy> winningStrategyList;
 
     private Player winner;
+
+    public Game(Integer size, List<Player> playerList, List<WinnerStrategy> winnerStrategyList){
+        board = new Board();
+        this.playerList = playerList;
+        this.winningStrategyList = winnerStrategyList;
+        this.nextPlayerIndex = 0;
+        this.gameState = GameState.IN_PROGRESS;
+        this.winner = null;
+        this.moveList = new ArrayList<>();
+    }
 
     public Board getBoard() {
         return board;

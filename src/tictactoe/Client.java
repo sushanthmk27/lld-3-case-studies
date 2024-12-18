@@ -1,10 +1,8 @@
 package tictactoe;
 
 import tictactoe.controllers.GameController;
-import tictactoe.models.Bot;
-import tictactoe.models.Game;
-import tictactoe.models.HumanPlayer;
-import tictactoe.models.Player;
+import tictactoe.models.*;
+import tictactoe.models.enums.BotDifficultyLevel;
 import tictactoe.models.enums.GameState;
 import tictactoe.strategy.WinnerStrategy;
 
@@ -16,24 +14,24 @@ public class Client {
         GameController gameController = new GameController();
 
         List<Player> playerList = new ArrayList<>();
-        playerList.add(new HumanPlayer());
-        playerList.add(new Bot());
+        playerList.add(new HumanPlayer(1, "Sushanth", new Symbol('X')));
+        playerList.add(new Bot(2, "Default Bot", BotDifficultyLevel.EASY, new Symbol('O')));
 
         int size = 3;       // board size
 
         List<WinnerStrategy> winnerStrategyList = new ArrayList<>();
 
-        gameController.startGame(size, playerList, winnerStrategyList);
+        Game game = gameController.startGame(size, playerList, winnerStrategyList);
 
-        while(gameController.gameState().equals(GameState.IN_PROGRESS)){
-            gameController.display();
-            gameController.makeMove();
+        while(gameController.gameState(game).equals(GameState.IN_PROGRESS)){
+            gameController.display(game);
+            gameController.makeMove(game);
         }
 
-        if(gameController.gameState().equals(GameState.SUCCESS)){
-            System.out.println("Winner of the game - " +gameController.getWinner().getName());
+        if(gameController.gameState(game).equals(GameState.SUCCESS)){
+            System.out.println("Winner of the game - " +gameController.getWinner(game).getName());
         }
-        else if(gameController.gameState().equals(GameState.DRAW)){
+        else if(gameController.gameState(game).equals(GameState.DRAW)){
             System.out.println("Game is drawn");
         }
     }
