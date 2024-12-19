@@ -23,7 +23,7 @@ public class Game {
     private Player winner;
 
     public Game(Integer size, List<Player> playerList, List<WinnerStrategy> winnerStrategyList){
-        board = new Board();
+        board = new Board(size);
         this.playerList = playerList;
         this.winningStrategyList = winnerStrategyList;
         this.nextPlayerIndex = 0;
@@ -86,5 +86,9 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+    }
+
+    public void displayBoard() {
+        board.display();
     }
 }

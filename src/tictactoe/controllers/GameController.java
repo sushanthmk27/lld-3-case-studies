@@ -14,11 +14,11 @@ public class GameController {
     }
 
     public GameState gameState(Game game){
-        return null;
+        return GameState.IN_PROGRESS;
     }
 
     public void display(Game game){
-
+        game.displayBoard();
     }
 
     public void makeMove(Game game){

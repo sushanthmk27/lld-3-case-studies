@@ -50,4 +50,13 @@ public class Cell {
     public void setSymbol(Symbol symbol) {
         this.symbol = symbol;
     }
+
+    public void display(){
+        if(cellState == CellState.EMPTY){
+            System.out.print("| - |");
+        }
+        else{
+            System.out.print("|" + symbol.getSymbolShapeChar() + "|");
+        }
+    }
 }

@@ -34,4 +34,13 @@ public class Board {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void display(){
+        for(List<Cell> row : grid){                   // here grid is a box in the 2d ArrayList, we traverse the row now
+            for(Cell cell : row){
+                cell.display();
+            }
+            System.out.println();
+        }
+    }
 }
