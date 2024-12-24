@@ -22,7 +22,7 @@ public class Game {
 
     private Player winner;
 
-    public Game(Integer size, List<Player> playerList, List<WinnerStrategy> winnerStrategyList){
+    private Game(Integer size, List<Player> playerList, List<WinnerStrategy> winnerStrategyList){
         board = new Board(size);
         this.playerList = playerList;
         this.winningStrategyList = winnerStrategyList;
@@ -90,5 +90,44 @@ public class Game {
 
     public void displayBoard() {
         board.display();
+    }
+
+    public static class GameBuilder{                                         // Added as part of the builder design
+        // In the GameBuilder class we only include those attributes which are taken as an input from the user
+        private int size;
+
+        private List<Player> playersList;
+
+        private List<WinnerStrategy> winnerStrategy;
+
+        public GameBuilder setSize(int size) {
+            this.size = size;
+            return this;
+        }
+
+        public GameBuilder setPlayersList(List<Player> playersList) {
+            this.playersList = playersList;
+            return this;
+        }
+
+        public GameBuilder setWinnerStrategy(List<WinnerStrategy> winnerStrategy) {
+            this.winnerStrategy = winnerStrategy;
+            return this;
+        }
+
+        public void validate(){
+            //Bot count =1
+            // No. of players = size-1
+            // All players should have different symbols
+
+        }
+
+        public Game build(){                                        // Added as part of the builder design
+            return new Game(size, playersList, winnerStrategy);
+        }
+    }
+
+    public static GameBuilder getBuilderInstance(){                          // Added as part of the builder design
+        return new GameBuilder();
     }
 }
