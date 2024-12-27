@@ -19,7 +19,7 @@ public class GameController {
     }
 
     public GameState gameState(Game game){
-        return GameState.IN_PROGRESS;
+        return game.getGameState();
     }
 
     public void display(Game game){
@@ -27,7 +27,7 @@ public class GameController {
     }
 
     public void makeMove(Game game){
-
+        game.makeMove();
     }
 
     public void undo(Game game){

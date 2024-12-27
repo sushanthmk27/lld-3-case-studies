@@ -1,5 +1,6 @@
 package tictactoe.models;
 
+import tictactoe.models.enums.CellState;
 import tictactoe.models.enums.GameState;
 import tictactoe.strategy.WinnerStrategy;
 
@@ -92,6 +93,44 @@ public class Game {
         board.display();
     }
 
+    public void makeMove() {
+        Player currentPlayer = playerList.get(nextPlayerIndex);
+        System.out.println("The current player to play the game is - "+currentPlayer.getName());
+
+        Move move = currentPlayer.makeMove(board);
+        //validateMove(move);
+
+        // Here we can add a while loop so that until a move is true the control will go back to the user to enter the input
+        if(!validateMove(move)){
+            System.out.println("Invalid move! Please try again with a valid move");
+        }
+
+        int row = move.getCell().getRow();
+        int col = move. getCell().getCol();
+
+        // Board updated and Filled with the new move
+        Cell cellUpdateWithNewMove = board.getGrid().get(row).get(col);
+        cellUpdateWithNewMove.setCellState(CellState.FILLED);
+        cellUpdateWithNewMove.setSymbol(currentPlayer.getSymbol());
+
+        move.setCell(cellUpdateWithNewMove);
+        move.setPlayer(currentPlayer);
+        moveList.add(move);
+
+
+
+    }
+
+    public boolean validateMove(Move move){
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        if(row <0 || row >= board.getSize() || col < 0 || col >= board.getSize()){
+            return false;
+        }
+        return board.getGrid().get(row).get(col).getCellState().equals(CellState.EMPTY);       // Checks if the cell is empty, if empty returns true else returns false
+    }
+
     public static class GameBuilder{                                         // Added as part of the builder design
         // In the GameBuilder class we only include those attributes which are taken as an input from the user
         private int size;
@@ -119,6 +158,8 @@ public class Game {
             //Bot count =1
             // No. of players = size-1
             // All players should have different symbols
+            // Throw exceptions if anything is invalid
+            // Throw exceptions in the controller for now
 
         }
 
