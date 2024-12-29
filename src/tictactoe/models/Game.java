@@ -93,18 +93,7 @@ public class Game {
         board.display();
     }
 
-    public void makeMove() {
-        Player currentPlayer = playerList.get(nextPlayerIndex);
-        System.out.println("The current player to play the game is - "+currentPlayer.getName());
-
-        Move move = currentPlayer.makeMove(board);
-        //validateMove(move);
-
-        // Here we can add a while loop so that until a move is true the control will go back to the user to enter the input
-        if(!validateMove(move)){
-            System.out.println("Invalid move! Please try again with a valid move");
-        }
-
+    private void updateGameState(Move move, Player currentPlayer){
         int row = move.getCell().getRow();
         int col = move. getCell().getCol();
 
@@ -117,7 +106,39 @@ public class Game {
         move.setPlayer(currentPlayer);
         moveList.add(move);
 
+        nextPlayerIndex++;
+        nextPlayerIndex %= playerList.size();
+    }
 
+    private boolean checkWinnner(Move move){
+        for(WinnerStrategy winnerStrategy : winningStrategyList){
+            if(winnerStrategy.checkWinner(board, move)){
+                return true;
+        }
+        return false;
+    }
+
+    public void makeMove() {
+        Player currentPlayer = playerList.get(nextPlayerIndex);
+        System.out.println("The current player to play the game is - "+currentPlayer.getName());
+        Move move = currentPlayer.makeMove(board);
+        //validateMove(move);
+
+        // Here we can add a while loop so that until a move is true the control will go back to the user to enter the input
+        if(!validateMove(move)){
+            System.out.println("Invalid move! Please try again with a valid move");
+            return true;
+        }
+
+        updateGameState(move, currentPlayer);
+
+        if(checkWinnner(move)){
+            winner = currentPlayer;
+            gameState = GameState.SUCCESS;
+        }
+        else if(moveList.size() == board.getSize() * board.getSize()){
+            gameState = GameState.DRAW;
+        }
 
     }
 

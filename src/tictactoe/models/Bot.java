@@ -2,6 +2,8 @@ package tictactoe.models;
 
 import tictactoe.models.enums.BotDifficultyLevel;
 import tictactoe.models.enums.PlayerType;
+import tictactoe.strategy.BotPlayingStrategy;
+import tictactoe.strategy.BotPlayingStrategyFactory;
 
 public class Bot extends Player{
 
@@ -21,6 +23,8 @@ public class Bot extends Player{
 
     @Override
     public Move makeMove(Board board) {
-        return null;
+        return BotPlayingStrategyFactory
+                .getBotPlayingStrategy(botDifficultyLevel)
+                .makeMove(board);
     }
 }
